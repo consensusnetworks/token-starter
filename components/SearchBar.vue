@@ -11,6 +11,7 @@
         type="text"
         class="px-4 py-2 w-full bg-gray-100 rounded-l-md"
         :placeholder="placeholder"
+        @keyup.enter="submit(searchInput)"
       />
       <button
         :disabled="loading"
