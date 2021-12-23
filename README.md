@@ -1,10 +1,10 @@
 # Token Starter
 
-Token Starter is a starter Nuxt app with utilities to deploy, inspect, send Ethereum tokens using Node, Hardhat, and Ethers. Connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
+Token Starter is a starter Nuxt app with Node utilities to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
 
 ## Prerequisites
 
-You'll need to have Node LTS or some similar version installed to run the utilities and app. You'll also need to have some Ethereum web wallet like Metamask installed in your browser to interact with the app.
+You'll need to have [Node LTS](https://nodejs.org/en/download/) or some similar version installed to run the utilities and app. You'll also need to have some Ethereum web wallet like [Metamask](https://metamask.io/) installed in your browser to interact with the app.
 
 ## Installation
 
@@ -70,6 +70,14 @@ Paste the contract address from the recent deployment into the search bar and en
 
 ### Geth Integration
 
-Visit [GethLabl](https://github.com/natemiller1/GethLab) and run the command to initialize your local geth node on port 8545. Make sure to first end the process running your Hardhat network (`CTRL + C` in the same terminal that you ran `npx hardhat node` in the first step.) 
+Visit [GethLab](https://github.com/natemiller1/GethLab) to confirm and run the commands to initialize your local geth node on port 8545 (if you don't have it running already). Make sure to first end the process running your Hardhat network (`CTRL + C` in the same terminal that you ran `npx hardhat node` in the first step.) 
 
 You may also want to switch from using your private key directly in .env `KEY` variable to using the `DATADIR` and `PASSWORD` variables, which provide the location of your local geth account keystore file and your password for that file, respectively.
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
