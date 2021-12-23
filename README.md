@@ -74,6 +74,11 @@ Visit [GethLab](https://github.com/natemiller1/GethLab) to confirm and run the c
 
 You may also want to switch from using your private key directly in .env `KEY` variable to using the `DATADIR` and `PASSWORD` variables, which provide the location of your local geth account keystore file and your password for that file, respectively.
 
+## Roadmap
+Although this is a simple starter app, we encourage ideas to improve how effective it is at introducing new developers to the Ethereum ecosystem.
+
+We also want to add some cool Docker and Kubernetes config for hypothetical deployments.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
