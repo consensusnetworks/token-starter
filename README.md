@@ -1,6 +1,6 @@
 # Token Starter
 
-Token Starter is a starter Nuxt app with Node utilities to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
+Token Starter is a boiler Nuxt app with Node utilities to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
 
 ## Prerequisites
 
@@ -81,3 +81,5 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+You are encouraged to copy or fork this project and use it to start your own.
