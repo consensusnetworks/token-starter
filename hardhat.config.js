@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 const dotenv = require("dotenv");
 dotenv.config();
-const chain = parseInt(process.env.CHAIN);
+const chainId = parseInt(process.env.CHAIN_ID);
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -26,7 +26,7 @@ module.exports = {
   },
   networks: {
     hardhat: {
-      chainId: chain
+      chainId
     }
   }
 };

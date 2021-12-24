@@ -15,4 +15,4 @@ cache
 artifacts
 
 #The Graph files
-subgraph
+build

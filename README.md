@@ -1,6 +1,6 @@
 # Token Starter
 
-Token Starter is a boiler Nuxt app with Node utilities to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
+Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/) and the [Graph](https://github.com/graphprotocol/graph-node). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ You should see an output that includes a JSON-RPC endpoint and a list of account
 
 2. Change `.env.example` to `.env`. 
    
-3. Fill in your network info. `NETWORK` and `CHAIN` can stay the same as the example (and `DATADIR` and `PASSWORD` can remain blank). You'll need to pick one of the accounts listed in the output from the previous step and copy the account # and private key to `ADDRESS` and `KEY`, respectively. 
+3. Fill in your network info. `NETWORK` and `CHAIN_ID` can stay the same as the example (and `DATADIR` and `PASSWORD` can remain blank). You'll need to pick one of the accounts listed in the output from the previous step and copy the account # and private key to `ADDRESS` and `KEY`, respectively. 
 
 4. Update `NAME`, `SYMBOL`, `SUPPLY` and `DECIMALS` with your desired token info. 
 
@@ -64,16 +64,15 @@ docker-compose up
 
 Confirm your node is running before continuing. (Todo: add a check for this.)
 
-2. Back in this token-starter directory, initialize your new subgraph for the token contract:
+2. Back in this token-starter directory, update the value of `dataSources: source: address` in `./subgraph/subgraph.yaml` to your new token address.
+
+3. Run the following to create and deploy the subgraph your local Graph node:
 
 ```shell
-graph init --protocol ethereum --from-contract "your-token-address" \
-    --network localhost \
-    --abi ./src/artifacts/contracts/Token.sol/Token.json \
-    --contract-name Token \
-    --product hosted-service \
-    --index-events \
-    "your-github-username"/token-starter subgraph
+cd subgraph
+npm run codegen
+npm run build
+npm run deploy
 ```
 
 ### Metamask Integration
@@ -82,13 +81,15 @@ Open a browser with Metamask, toggle the wallet extension, and switch the networ
 
 ### Token Inspection
 
-Serve the Nuxt app:
+1. Serve the Nuxt app:
 
 ```shell
 npm run dev
 ```
 
-Paste the contract address from the recent deployment into the search bar and enter. You should see the token information in the app. You can also send some of your new token to another account on your network.
+2. Paste the contract address from the recent deployment into the search bar and enter. You should see the token information in the app. You can also send some of your new token to another account on your network.
+
+Note, you'll need to have connected your wallet (the one you used to deploy the contract) to the network with Metamask at this point.
 
 ### Geth Integration
 
@@ -96,27 +97,32 @@ Visit [GethLab](https://github.com/natemiller1/GethLab) to confirm and run the c
 
 You may also want to switch from using your private key directly in .env `KEY` variable to using the `DATADIR` and `PASSWORD` variables, which provide the location of your local geth account keystore file and your password for that file, respectively.
 
-## Operations
+## Deployment
 
 ### Docker
 
 Build:
 ```shell
-docker build -t "your-docker-username"/token-starter
+docker build -t consensusnetworks/token-starter
 ```
 
 Run:
 ```shell
-docker run -p 3000:3000 -d "your-docker-username"/token-starter
+docker run -p 3000:3000 -d consensusnetworks/token-starter
 ```
 
 Push:
 ```shell
-docker push "your-docker-username"/token-starter
+docker push consensusnetworks/token-starter
 ```
 
 ## Roadmap
-Although this is a simple starter app, we can consider ways to improve the onboarding of new developers to the Ethereum ecosystem.
+Although this is a simple starter app, we can consider ways to improve the onboarding of new developers to the Ethereum ecosystem. These ideas will lead to changes in this starter repo. 
+
+Some ideas may be best implemented in their own separate repository. You are encouraged to copy or fork this project and use it to start your own.
+
+Other, already, existing tasks include:
+- Complete K8s deployment of the Nuxt app
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -125,5 +131,3 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-
-You are encouraged to copy or fork this project and use it to start your own.

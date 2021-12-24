@@ -9,7 +9,7 @@ dotenv.config();
 
 // Deploy to your local Geth network or similar
 const network = parseInt(process.env.NETWORK);
-const chain = parseInt(process.env.CHAIN);
+const chainId = parseInt(process.env.CHAIN_ID);
 
 // Use your local Geth or hardhat wallet
 const address = process.env.ADDRESS;
@@ -27,7 +27,7 @@ async function main() {
   // We get our wallet
   const keyObject = !key ? keythereum.importFromFile(address , datadir) : null;
   const recoveredKey = !key ? keythereum.recover(password, keyObject) : null;
-  const provider = new ethers.providers.JsonRpcProvider(network, chain);
+  const provider = new ethers.providers.JsonRpcProvider(network, chainId);
   const wallet = new ethers.Wallet(key || recoveredKey, provider);
 
   // We get the contract to deploy, signed with wallet
