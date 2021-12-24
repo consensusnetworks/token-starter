@@ -75,6 +75,15 @@ npm run build
 npm run deploy
 ```
 
+**Note:** Whenever the Ethereum network has been reset (eg. Hardhat restarted, computer rebooted…), you must DELETE the ./docker/data folder located in the graph-node folder cloned from the repository).
+This is required to clean the existing database that checks the genesis block for the current Ethereum network. 
+
+You can do this cleanup by running:
+
+```shell
+rm -rf "/path/to/graph-node/docker/data"
+```
+
 ### Metamask Integration
 
 Open a browser with Metamask, toggle the wallet extension, and switch the network to `http://localhost:8545`. Then click the Metamask account avatar in the top right corner of the extension and select `Import Account`. You can paste the private key from the contract deployment step into the input box. You can also import your new token by selecting the `Assets` tab and clicking `Import tokens`.
@@ -89,7 +98,7 @@ npm run dev
 
 2. Paste the contract address from the recent deployment into the search bar and enter. You should see the token information in the app. You can also send some of your new token to another account on your network.
 
-Note, you'll need to have connected your wallet (the one you used to deploy the contract) to the network with Metamask at this point.
+**Note:** You'll need to have connected your wallet (the one you used to deploy the contract) to the network with Metamask at this point.
 
 ### Geth Integration
 
@@ -122,7 +131,9 @@ Although this is a simple starter app, we can consider ways to improve the onboa
 Some ideas may be best implemented in their own separate repository. You are encouraged to copy or fork this project and use it to start your own.
 
 Other, already, existing tasks include:
-- Complete K8s deployment of the Nuxt app
+- Fix the Nuxt SSR hydration issue and then remove client-only wrapper in `./layouts/default.vue` (which is a temporary fix)
+- Add the subgraph to a submodule in this repository so its code can be hosted in its own repository
+- Complete simple K8s deployment of the Nuxt app (deployment.yaml and service.yaml) by fixing a port forwarding issue (which also needs to be documented)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
