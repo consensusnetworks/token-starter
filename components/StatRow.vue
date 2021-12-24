@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-3 pb-3">
+  <div class="pt-9 pb-3"> 
     <div
       name="stat-box"
       id="stat-box"
@@ -19,7 +19,7 @@
       <div
         v-for="(value, name) in stats"
         :key="name"
-        class="text-center w-full py-4"
+        class="text-center w-full py-9"
       >
         <div class="text-2xl font-black text-slate-900">
           {{ value ? parseStat(value) : "–" }}

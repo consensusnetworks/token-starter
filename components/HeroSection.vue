@@ -1,5 +1,11 @@
 <template>
-  <section class="relative h-96 bg-[url('/background-36.png')]">
+  <!-- Todo: remove this hack for Nuxt SSR to load favicon -->
+  <div style="background-image: url('favicon.ico');"></div>
+
+  <section
+    class="relative h-96"
+    style="background-image: url('background.png')"
+  >
     <div
       class="
         rounded-full
@@ -31,7 +37,7 @@
         Token Starter
       </h2>
       <p class="mt-4 max-w-2xl text-xl text-slate-300 mx-auto">
-        Search for your token below
+        Manage your tokens
       </p>
     </div>
   </section>

@@ -1,12 +1,11 @@
 <template>
   <div class="min-h-full">
-    <HeroSection v-if="true" />
+    <HeroSection />
     <!-- ^^^ Todo: only show section if on home page -->
 
-    <main>
-      <div class="max-w-3xl mx-auto p-6">
-        <slot />
-      </div>
-    </main>
+    <!-- Todo: fix SSR hydration issue and remove client-only wrapper -->
+    <client-only>
+      <slot />
+    </client-only>
   </div>
 </template>

@@ -1,32 +1,30 @@
-# Build Stage
-FROM node:lts-alpine as build-stage
+FROM node:lts as builder
 
-ENV NODE_ENV=production
-ENV APP_HOME=/
+WORKDIR /app
 
-RUN mkdir -p $APP_HOME
+COPY . .
 
-COPY . $APP_HOME
+RUN npm install \
+  --prefer-offline \
+  --frozen-lockfile \
+  --non-interactive \
+  --production=false
 
-RUN cd $APP_HOME && npm install \
+RUN npm run build
+
+RUN rm -rf node_modules && \
+  NODE_ENV=production npm install \
   --prefer-offline \
   --pure-lockfile \
   --non-interactive \
   --production=true
 
-WORKDIR $APP_HOME
+FROM node:lts-alpine
 
-RUN npm run generate
+WORKDIR /app
 
-# Production Stage
-FROM nginx:stable-alpine as production-stage
-
-ENV APP_HOME=/
-
-COPY --from=build-stage $APP_HOME/dist /usr/share/nginx/html
-
-RUN chown nginx:nginx /usr/share/nginx/html
+COPY --from=builder /app  .
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "npm", "start" ]

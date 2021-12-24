@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: token-starter-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: token-starter
+  template:
+    metadata:
+      labels:
+        app: token-starter
+    spec:
+      containers:
+        - name: token-starter
+          image: shanejearley/token-starter:latest
+          ports:
+            - containerPort: 80
