@@ -1,0 +1,16 @@
+{
+  "name": "token-starter",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ consensusnetworks/token-starter",
+    "create-local": "graph create --node http://127.0.0.1:8020/ consensusnetworks/token-starter",
+    "remove-local": "graph remove --node http://127.0.0.1:8020/ consensusnetworks/token-starter",
+    "deploy-local": "graph deploy --node http://127.0.0.1:8020/ --ipfs http://localhost:5001 consensusnetworks/token-starter"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.25.1",
+    "@graphprotocol/graph-ts": "0.24.1"
+  }
+}
