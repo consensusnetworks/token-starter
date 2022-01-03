@@ -136,15 +136,17 @@ docker push consensusnetworks/token-starter
 
 ### Kubernetes
 
+:whale: :whale: :whale:
+
 For Docker Desktop only:
 
-    Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config:
+- Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config:
 
     ```shell
     kubectl edit configmap -n kube-system kube-proxy
     ```
 
-    Set `strictARP` as `true` and save the file:
+- Set `strictARP` as `true` and save the file:
 
     ```vim
     apiVersion: kubeproxy.config.k8s.io/v1alpha1
@@ -154,12 +156,14 @@ For Docker Desktop only:
     strictARP: true
     ```
 
-    Add MetalLB to your cluster with its Helm chart:
+- Add MetalLB to your cluster with its Helm chart:
 
     ```shell
     helm repo add metallb https://metallb.github.io/metallb
     helm install metallb metallb/metallb -f kubernetes/values.yaml
     ```
+
+:whale: :whale: :whale:
 
 Deployment:
 
