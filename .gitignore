@@ -16,3 +16,6 @@ artifacts
 
 #The Graph files
 build
+
+#Docker files
+data
