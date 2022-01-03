@@ -14,7 +14,7 @@ Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, ins
 You'll need to a few things first: 
 - [Node (LTS)](https://nodejs.org/en/download/) (installed in on your machine) to run the utilities and app
 - Ethereum web wallet like [Metamask](https://metamask.io/) (installed in your browser) to interact with the app
-- Bonus: Docker Desktop running Kubernetes for local deployment testing
+- Bonus: Docker Desktop running Kubernetes for building images and locally testing on a cluster
   
 ## Installation
 
