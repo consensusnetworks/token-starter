@@ -144,13 +144,31 @@ docker push consensusnetworks/token-starter
 
 ### Kubernetes
 
-Load Balancer (configuration only needed for local or bare metal deployment):
+Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config (Docker Desktop only):
+
+```shell
+kubectl edit configmap -n kube-system kube-proxy
+```
+
+Set `strictARP` as `true` and save the file (Docker Desktop only):
+
+```vim
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: "ipvs"
+ipvs:
+  strictARP: true
+```
+
+Add MetalLB to your cluster with its Helm chart (Docker Desktop only):
+
 ```shell
 helm repo add metallb https://metallb.github.io/metallb
 helm install metallb metallb/metallb -f kubernetes/values.yaml
 ```
 
 Deployment:
+
 ```shell
 kubectl apply -f kubernetes/deployment.yaml
 ```
@@ -166,13 +184,9 @@ Although this is a simple starter app, we can consider ways to improve the onboa
 
 Some ideas may be best implemented in their own separate repository. You are encouraged to copy or fork this project and use it to start your own.
 
-Other, already, existing tasks include:
-- Fix the Nuxt SSR hydration issue and then remove client-only wrapper in `./layouts/default.vue` (which is a temporary fix)
-- Document the Docker Desktop workaround for local Kubernetes deployment
-
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first!
+Pull requests are welcome. For major changes, please check out [what's being worked on and open a new issue](https://github.com/consensusnetworks/token-starter/issues) before starting!
 
 Please make sure to update tests as appropriate.
 
