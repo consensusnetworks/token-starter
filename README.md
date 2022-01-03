@@ -136,9 +136,7 @@ docker push consensusnetworks/token-starter
 
 ### Kubernetes
 
-:whale: :whale: :whale:
-
-For Docker Desktop only:
+:whale: :warning: For Docker Desktop only (skip otherwise):
 
 - Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config:
 
@@ -163,15 +161,14 @@ For Docker Desktop only:
     helm install metallb metallb/metallb -f kubernetes/values.yaml
     ```
 
-:whale: :whale: :whale:
-
-Deployment:
+Apply Deployment resource to your cluster:
 
 ```shell
 kubectl apply -f kubernetes/deployment.yaml
 ```
 
-Service:
+Apply Service resource to your cluster:
+
 ```shell
 kubectl apply -f kubernetes/service.yaml
 ```
