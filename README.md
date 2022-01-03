@@ -49,13 +49,13 @@ Update `NAME`, `SYMBOL`, `SUPPLY` and `DECIMALS` with your desired token info.
 
 ### Hardhat Contract Deployment
 
-Compile and test the ERC-20 Solidity contract at `/contracts/Token.sol`:
+Compile and test the ERC-20 Solidity contract at `contracts/Token.sol`:
 
 ```shell
 npx hardhat test
 ```
 
-If successful, you should see a new directory `/src/artifacts` with the compiled contract and the test `/test/token-test.js` will pass without exceptions. You'll need to rerun this command or `npm run compile` if you change the contract.
+If successful, you should see a new directory `src/artifacts` with the compiled contract and the test `test/token-test.js` will pass without exceptions. You'll need to rerun this command or `npm run compile` if you change the contract.
 
 Now you can deploy the contract:
 
@@ -70,29 +70,21 @@ If successful, you should see your console output the following: `Token deployed
 In a separate terminal, start The Graph node (you'll want to leave it running for the rest of the process):
 
 ```shell
-cd graph-node/docker
+cd graph/graph-node/docker
 docker-compose up
 ```
 
 Wait for deployment logs to complete and confirm your node is running before continuing. 
 
 **Note:** Whenever the Ethereum network has been reset (eg. Hardhat restarted, computer rebooted…), you must DELETE the ./docker/data folder located in the graph-node folder cloned from the repository).
-This is required to clean the existing database that checks the genesis block for the current Ethereum network. 
+This is required to clean the existing database that checks the genesis block for the current Ethereum network. You can do this cleanup by running `rm -rf "graph/graph-node/docker/data"`. You can stop the node anytime by running `CTRL+C` in the terminal that you started it in.
 
-You can do this cleanup by running:
-
-```shell
-rm -rf "./graph-node/docker/data"
-```
-
-You can stop the node by running `CTRL+C` in the terminal that you started it in.
-
-Change back to the root directory in token-starter and update the value of `dataSources: source: address` in `./subgraph/subgraph.yaml` to your new token address.
+Update the value of `dataSources: source: address` in `graph/subgraph/subgraph.yaml` to your new token address.
 
 Run the following to create and deploy the subgraph your local Graph node:
 
 ```shell
-cd subgraph
+cd graph/subgraph
 npm run codegen
 npm run build
 npm run deploy
@@ -104,7 +96,7 @@ Open a browser with Metamask, toggle the wallet extension, and switch the networ
 
 ### Token Application
 
-Serve the Nuxt app:
+Serve the Nuxt app from the root of this repository:
 
 ```shell
 npm run dev
@@ -144,28 +136,30 @@ docker push consensusnetworks/token-starter
 
 ### Kubernetes
 
-Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config (Docker Desktop only):
+For Docker Desktop only:
 
-```shell
-kubectl edit configmap -n kube-system kube-proxy
-```
+    Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config:
 
-Set `strictARP` as `true` and save the file (Docker Desktop only):
+    ```shell
+    kubectl edit configmap -n kube-system kube-proxy
+    ```
 
-```vim
-apiVersion: kubeproxy.config.k8s.io/v1alpha1
-kind: KubeProxyConfiguration
-mode: "ipvs"
-ipvs:
-  strictARP: true
-```
+    Set `strictARP` as `true` and save the file:
 
-Add MetalLB to your cluster with its Helm chart (Docker Desktop only):
+    ```vim
+    apiVersion: kubeproxy.config.k8s.io/v1alpha1
+    kind: KubeProxyConfiguration
+    mode: "ipvs"
+    ipvs:
+    strictARP: true
+    ```
 
-```shell
-helm repo add metallb https://metallb.github.io/metallb
-helm install metallb metallb/metallb -f kubernetes/values.yaml
-```
+    Add MetalLB to your cluster with its Helm chart:
+
+    ```shell
+    helm repo add metallb https://metallb.github.io/metallb
+    helm install metallb metallb/metallb -f kubernetes/values.yaml
+    ```
 
 Deployment:
 
