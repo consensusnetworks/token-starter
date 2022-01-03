@@ -136,7 +136,7 @@ docker push consensusnetworks/token-starter
 
 ### Kubernetes
 
-:whale: :warning: For Docker Desktop only (skip otherwise):
+:warning: :whale: Run these steps (bulleted) for Docker Desktop only (skip otherwise):
 
 - Prepare your local Kubernetes environment to run a Load Balancer by editing your cluster config:
 
