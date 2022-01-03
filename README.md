@@ -2,10 +2,17 @@
 
 Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/) and the [Graph](https://github.com/graphprotocol/graph-node). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
 
+![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+
 ## Prerequisites
 
-You'll need to have [Node LTS](https://nodejs.org/en/download/) or some similar version installed to run the utilities and app. You'll also need to have some Ethereum web wallet like [Metamask](https://metamask.io/) installed in your browser to interact with the app.
-
+You'll need to a few things first: 
+- [Node (LTS)](https://nodejs.org/en/download/) (installed in on your machine) to run the utilities and app
+- Ethereum web wallet like [Metamask](https://metamask.io/) (installed in your browser) to interact with the app
+- Bonus: Docker Desktop running Kubernetes for local deployment testing
+  
 ## Installation
 
 Clone this repository, change into the new directory, and install dependencies:
@@ -20,7 +27,7 @@ npm install
 
 ### Hardhat Initialization
 
-1. Initialize your local hardhat network:
+Initialize your local hardhat network:
 
 ```shell
 npx hardhat node
@@ -28,15 +35,15 @@ npx hardhat node
 
 You should see an output that includes a JSON-RPC endpoint and a list of accounts, shown as pairs account #s and private keys, each loaded with ~10000 ETH. Keep this console running throughout the rest of the process unless you want to switch to a different network.
 
-2. Change `.env.example` to `.env`. 
+Change `.env.example` to `.env`. 
    
-3. Fill in your network info. `NETWORK` and `CHAIN_ID` can stay the same as the example (and `DATADIR` and `PASSWORD` can remain blank). You'll need to pick one of the accounts listed in the output from the previous step and copy the account # and private key to `ADDRESS` and `KEY`, respectively. 
+Fill in your network info. `NETWORK` and `CHAIN_ID` can stay the same as the example (and `DATADIR` and `PASSWORD` can remain blank). You'll need to pick one of the accounts listed in the output from the previous step and copy the account # and private key to `ADDRESS` and `KEY`, respectively. 
 
-4. Update `NAME`, `SYMBOL`, `SUPPLY` and `DECIMALS` with your desired token info. 
+Update `NAME`, `SYMBOL`, `SUPPLY` and `DECIMALS` with your desired token info. 
 
 ### Contract Deployment
 
-1. Compile and test the ERC-20 Solidity contract at `/contracts/Token.sol`:
+Compile and test the ERC-20 Solidity contract at `/contracts/Token.sol`:
 
 ```shell
 npx hardhat test
@@ -44,7 +51,7 @@ npx hardhat test
 
 If successful, you should see a new directory `/src/artifacts` with the compiled contract and the test `/test/token-test.js` will pass without exceptions. You'll need to rerun this command or `npm run compile` if you change the contract.
 
-2. Now you can deploy the contract:
+Now you can deploy the contract:
 
 ```
 npx hardhat run scripts/deploy-token.js --network localhost
@@ -54,19 +61,29 @@ If successful, you should see your console output the following: `Token deployed
 
 ### The Graph Initialization
 
-1. In another directory (or in the same directory if you prefer), clone the [graph-node](https://github.com/graphprotocol/graph-node.git) repository and run the following command to start the Graph node:
+In a separate terminal, start The Graph node (you'll want to leave it running for the rest of the process):
 
 ```shell
-git clone https://github.com/graphprotocol/graph-node.git
 cd graph-node/docker
 docker-compose up
 ```
 
-Confirm your node is running before continuing. (Todo: add a check for this.)
+Wait for deployment logs to complete and confirm your node is running before continuing. 
 
-2. Back in this token-starter directory, update the value of `dataSources: source: address` in `./subgraph/subgraph.yaml` to your new token address.
+**Note:** Whenever the Ethereum network has been reset (eg. Hardhat restarted, computer rebooted…), you must DELETE the ./docker/data folder located in the graph-node folder cloned from the repository).
+This is required to clean the existing database that checks the genesis block for the current Ethereum network. 
 
-3. Run the following to create and deploy the subgraph your local Graph node:
+You can do this cleanup by running:
+
+```shell
+rm -rf "./graph-node/docker/data"
+```
+
+You can stop the node by running `CTRL+C` in the terminal that you started it in.
+
+Change back to the root directory in token-starter and update the value of `dataSources: source: address` in `./subgraph/subgraph.yaml` to your new token address.
+
+Run the following to create and deploy the subgraph your local Graph node:
 
 ```shell
 cd subgraph
@@ -75,28 +92,19 @@ npm run build
 npm run deploy
 ```
 
-**Note:** Whenever the Ethereum network has been reset (eg. Hardhat restarted, computer rebooted…), you must DELETE the ./docker/data folder located in the graph-node folder cloned from the repository).
-This is required to clean the existing database that checks the genesis block for the current Ethereum network. 
-
-You can do this cleanup by running:
-
-```shell
-rm -rf "/path/to/graph-node/docker/data"
-```
-
 ### Metamask Integration
 
 Open a browser with Metamask, toggle the wallet extension, and switch the network to `http://localhost:8545`. Then click the Metamask account avatar in the top right corner of the extension and select `Import Account`. You can paste the private key from the contract deployment step into the input box. You can also import your new token by selecting the `Assets` tab and clicking `Import tokens`.
 
 ### Token Inspection
 
-1. Serve the Nuxt app:
+Serve the Nuxt app:
 
 ```shell
 npm run dev
 ```
 
-2. Paste the contract address from the recent deployment into the search bar and enter. You should see the token information in the app. You can also send some of your new token to another account on your network.
+Paste the contract address from the recent deployment into the search bar and enter. You should see the token information in the app. You can also send some of your new token to another account on your network.
 
 **Note:** You'll need to have connected your wallet (the one you used to deploy the contract) to the network with Metamask at this point.
 
@@ -112,17 +120,35 @@ You may also want to switch from using your private key directly in .env `KEY` v
 
 Build:
 ```shell
-docker build -t consensusnetworks/token-starter
+docker build -t consensusnetworks/token-starter ./docker
 ```
 
 Run:
 ```shell
-docker run -p 3000:3000 -d consensusnetworks/token-starter
+docker run -p 3000:3000 -d consensusnetworks/token-starter ./docker
 ```
 
 Push:
 ```shell
 docker push consensusnetworks/token-starter
+```
+
+### Kubernetes
+
+Load Balancer (configuration only needed for local or bare metal deployment):
+```shell
+helm repo add metallb https://metallb.github.io/metallb
+helm install metallb metallb/metallb -f kubernetes/values.yaml
+```
+
+Deployment:
+```shell
+kubectl apply -f kubernetes/deployment.yaml
+```
+
+Service:
+```shell
+kubectl apply -f kubernetes/service.yaml
 ```
 
 ## Roadmap
@@ -132,11 +158,10 @@ Some ideas may be best implemented in their own separate repository. You are enc
 
 Other, already, existing tasks include:
 - Fix the Nuxt SSR hydration issue and then remove client-only wrapper in `./layouts/default.vue` (which is a temporary fix)
-- Add the subgraph to a submodule in this repository so its code can be hosted in its own repository
-- Complete simple K8s deployment of the Nuxt app (deployment.yaml and service.yaml) by fixing a port forwarding issue (which also needs to be documented)
+- Document the Docker Desktop workaround for local Kubernetes deployment
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first!
 
 Please make sure to update tests as appropriate.
 
