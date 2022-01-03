@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ../kubernetes/kompose
+    kompose.version: 1.26.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: graph-node
+  name: graph-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: graph-node
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o ../kubernetes/kompose
+        kompose.version: 1.26.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: graph-node
+    spec:
+      containers:
+        - env:
+            - name: GRAPH_LOG
+              value: info
+            - name: ethereum
+              value: mainnet:http://host.docker.internal:8545
+            - name: ipfs
+              value: ipfs:5001
+            - name: postgres_db
+              value: graph-node
+            - name: postgres_host
+              value: postgres
+            - name: postgres_pass
+              value: let-me-in
+            - name: postgres_user
+              value: graph-node
+          image: graphprotocol/graph-node
+          name: graph-node
+          ports:
+            - containerPort: 8000
+            - containerPort: 8001
+            - containerPort: 8020
+            - containerPort: 8030
+            - containerPort: 8040
+          resources: {}
+      restartPolicy: Always
+status: {}
