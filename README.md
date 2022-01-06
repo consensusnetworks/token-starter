@@ -52,6 +52,7 @@ Update `NAME`, `SYMBOL`, `SUPPLY` and `DECIMALS` with your desired token info.
 Compile and test the ERC-20 Solidity contract at `contracts/Token.sol`:
 
 ```shell
+npx hardhat compile
 npx hardhat test
 ```
 
@@ -87,8 +88,11 @@ Run the following to create and deploy the subgraph your local Graph node:
 cd graph/subgraph
 npm run codegen
 npm run build
-npm run deploy
+npm run create-local
+npm run deploy-local
 ```
+
+The last command should output an HTTP and WS endpoint for your subgraph. The queries endpoint should be saved in your `.env` file as `GRAPH_ENDPOINT` (you can replace the default value if necessary).
 
 ### Metamask Integration
 
