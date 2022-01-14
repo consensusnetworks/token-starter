@@ -56,12 +56,12 @@ const props = defineProps({
   }
 });
 
-const searchInput = useState(null);
+const searchInput = useState("seachInput", () => null);
 const setSearchInput = (newSearchInput) => {
   searchInput.value = newSearchInput;
 }
 
-const loading = useState(false);
+const loading = useState("loading", () => false);
 const setLoading = (newLoading) => {
   loading.value = newLoading;
 }

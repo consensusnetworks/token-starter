@@ -94,17 +94,17 @@ const props = defineProps({
   },
 });
 
-const recipient = useState(null);
+const recipient = useState("recipient", () => null);
 const setRecipient = (newRecipient) => {
   recipient.value = newRecipient;
 }
 
-const amount = useState(null);
+const amount = useState("amount", () => null);
 const setAmount = (newAmount) => {
   amount.value = newAmount;
 }
 
-const loading = useState(false);
+const loading = useState("loading", () => false);
 const setLoading = (newLoading) => {
   loading.value = newLoading;
 }
