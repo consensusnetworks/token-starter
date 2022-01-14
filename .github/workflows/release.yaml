@@ -13,6 +13,20 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
+      # Copy package.json, package-lock.json, and CHANGELOG.md to develop branch
+      - name: Sync released version files to develop
+        env:
+          TARGET_BRANCH: 'develop'
+        run: |
+          git config --global user.name 'robo-support'
+          git config --global user.email 'support@consensusnetworks.com'
+          git fetch
+          git checkout $TARGET_BRANCH
+          git checkout ${GITHUB_REF##*/} -- package.json package-lock.json CHANGELOG.md
+          git add -A
+          git diff-index --quiet HEAD ||  git commit -am "Sync released version files"
+          git push origin $TARGET_BRANCH
+
       # Docker Hub - For public repositories
 
       - name: Login to Docker Hub
