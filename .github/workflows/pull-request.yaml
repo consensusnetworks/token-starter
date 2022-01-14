@@ -1,0 +1,20 @@
+name: Test Docker image on pull request
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  test_image:
+    name: Test Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      # Run tests for the image CI
+      # - name: Build and test image
+      #   run: |
+      #     docker build .
