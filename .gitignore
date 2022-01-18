@@ -12,7 +12,6 @@ typechain
 
 #Hardhat files
 cache
-artifacts
 
 #The Graph files
 build
