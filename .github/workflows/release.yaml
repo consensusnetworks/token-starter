@@ -18,7 +18,7 @@ jobs:
         env:
           TARGET_BRANCH: 'develop'
         run: |
-          git config --global user.name 'robo-support'
+          git config --global user.name 'robosupport'
           git config --global user.email 'support@consensusnetworks.com'
           git fetch
           git checkout $TARGET_BRANCH
