@@ -1,4 +1,8 @@
 # Token Starter
+:coin: Boilerplate app to launch and manage an ERC-20 token
+
+## About
+Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/) and [The Graph](https://github.com/graphprotocol/graph-node). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
 
 ![NuxtJS](https://img.shields.io/badge/Nuxt-black?style=for-the-badge&logo=nuxt.js&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
@@ -6,9 +10,6 @@
 ![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white)
 ![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
-
-Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, inspect, send Ethereum tokens using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/) and [The Graph](https://github.com/graphprotocol/graph-node). You can use it to connect to your Ethereum network and start deploying tokens as ERC-20 smart contracts.
 
 ## Prerequisites
 
