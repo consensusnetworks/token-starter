@@ -3,7 +3,7 @@
 
 ## About
 
-Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, inspect, send, and analyze an Ethereum token using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/) and [The Graph](https://github.com/graphprotocol/graph-node). You can use it to connect to an Ethereum network and start deploy a tokens as an ERC-20 smart contract. You can deploy subgraphs using your token's ABI and create custom datasets for analytics. The frontend is built with simple Tailwind-styled Vue components that are easy to customize and extend. Docker setup is included.
+Token Starter is a boilerplate Nuxt app with Node utility scripts to deploy, inspect, send, and analyze an Ethereum token using [Hardhat](https://github.com/nomiclabs/hardhat) and [Ethers](https://github.com/ethers-io/ethers.js/) and [The Graph](https://github.com/graphprotocol/graph-node). You can use it to connect to an Ethereum network and start deploy a tokens as an ERC-20 smart contract. You can deploy subgraphs using your token's ABI and create custom datasets for analytics. The frontend is built with simple Tailwind-styled Vue components that are easy to customize and extend. Docker setup included.
 
 ![NuxtJS](https://img.shields.io/badge/Nuxt-black?style=for-the-badge&logo=nuxt.js&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
